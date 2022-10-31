@@ -16,7 +16,7 @@ db:
         logLevel: info
 
 server:
-  port: 50051
+  port: 8080
 
 auth:
   jwt:

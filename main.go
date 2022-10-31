@@ -9,8 +9,6 @@ import (
 	"time"
 	"waas-service/auth/jwt/jose"
 	"waas-service/config"
-	db "waas-service/db/sqlc"
-
 	"waas-service/grpc"
 	"waas-service/pb"
 )
@@ -18,7 +16,7 @@ import (
 // server is used to implement proto.GreeterServer.
 type server struct {
 	pb.PingServer
-	store *db.SQLStore
+	//store *db.SQLStore
 }
 
 // Ping implements pingServer.Ping
@@ -30,12 +28,16 @@ func (s *server) Ping(ctx context.Context, _ *pb.PingRequest) (*pb.PongReply, er
 	//if err != nil {
 	//	return nil, err
 	//}
-	group, err := s.store.GetGroup(ctx, 1)
-	if err != nil {
-		return nil, err
-	}
-	log.Printf("group: %v", group)
+	//group, err := s.store.GetGroup(ctx, 1)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//log.Printf("group: %v", group)
 	return &pb.PongReply{Message: fmt.Sprintf("Pong at %s", time.Now())}, nil
+}
+
+func (s *server) Msg(_ context.Context, _ *pb.MsgRequest) (*pb.MsgReply, error) {
+	return &pb.MsgReply{Message: fmt.Sprintf("Reply at: %s", time.Now())}, nil
 }
 
 func init() {
@@ -50,7 +52,7 @@ func main() {
 	//	log.Fatalf("failed to create DB store: %v", err)
 	//}
 
-	listen, err := net.Listen("tcp", fmt.Sprintf(":%d", appConfig.GetServerPort()))
+	listen, err := net.Listen("tcp", fmt.Sprintf("0.0.0.0:%d", appConfig.GetServerPort()))
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}

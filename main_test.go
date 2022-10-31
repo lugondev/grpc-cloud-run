@@ -18,7 +18,7 @@ var accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Im5wUGYtZHpaQktfR
 
 func TestStreamGRPC(t *testing.T) {
 	// dial server
-	conn, err := grpc.Dial(":50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial("waas-grpc-czljur1g.uc.gateway.dev:443", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("can not connect with server %v", err)
 	}
@@ -29,7 +29,7 @@ func TestStreamGRPC(t *testing.T) {
 
 	// create stream
 	client := pb.NewPingClient(conn)
-	pongReply, err := client.Ping(ctx, &pb.PingRequest{})
+	pongReply, err := client.Msg(ctx, &pb.MsgRequest{})
 	if err != nil {
 		log.Panic(err)
 		return

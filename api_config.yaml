@@ -1,0 +1,18 @@
+# The configuration schema is defined by the service.proto file.
+# https://github.com/googleapis/googleapis/blob/master/google/api/service.proto
+
+type: google.api.Service
+config_version: 3
+name: "waas.apigateway.bamdev-apt.cloud.goog"
+title: API Gateway + Cloud Run gRPC
+apis:
+  - name: pb.Ping
+usage:
+  rules:
+    # ListShelves methods can be called without an API Key.
+    - selector: pb.Ping.Ping
+      allow_unregistered_calls: true
+backend:
+  rules:
+    - selector: "*"
+      address: grpcs://waas-service-jhxvtoeu7q-as.a.run.app
