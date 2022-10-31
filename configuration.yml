@@ -1,0 +1,29 @@
+db:
+  postgresql:
+    primary:
+      host: localhost
+      port: 5432
+      dbName: waas_dev
+      username: root
+      password: secret
+      sslMode: disable
+      timeZone: Asia/Ho_Chi_Minh
+      connectionMaxIdleTime: 10
+      connectionMaxLifetime: 30
+      maxIdleConnections: 2
+      maxOpenConnections: 5
+      logger:
+        logLevel: info
+
+server:
+  port: 50051
+
+auth:
+  jwt:
+    issuer: https://auth.bams.dev/
+    audience: https://auth.bams.dev/id
+    claimsPath: https://bams.dev/rbac
+  auth0:
+    clientId: DPbUSQT65UTSHeUZ0hkOR18gxKJubiht
+    clientSecret: UMgslLnk2KV2fq1xfW_K4TEx29PKMzUifHYtBDMwJblpo9qxdl3NlOaqP7gM3W39
+    domain: bam-dev.us.auth0.com
