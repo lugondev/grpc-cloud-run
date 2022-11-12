@@ -30,6 +30,8 @@ sqlc:
 server:
 	go run main.go
 
+client:
+	go run client/main.go example.run.app:443
 proto:
 	rm -f pb/*.go
 	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
@@ -37,7 +39,7 @@ proto:
 	--descriptor_set_out descriptor.pb \
 	proto/*.proto
 
-.PHONY: network postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc server proto
+.PHONY: network postgres createdb dropdb migrateup migratedown migrateup1 migratedown1 sqlc server proto client
 .PHONY: all build deploy clean build-linux
 
 include .env
